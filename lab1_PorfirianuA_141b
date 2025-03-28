@@ -1,0 +1,97 @@
+                                                  Завдання 1
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N;
+    cout << "Введіть розмір масивів N: ";
+    cin >> N;
+
+    double *A = new double[N];
+    double *B = new double[N];
+
+    cout << "Введіть елементи масиву A:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "A[" << i << "] = ";
+        cin >> A[i];
+    }
+
+    cout << "Введіть елементи масиву B:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "B[" << i << "] = ";
+        cin >> B[i];
+    }
+
+    for (int i = 0; i < N; i++) {
+        if (A[i] > 0) {
+            A[i] = B[i];
+        }
+    }
+
+    cout << "Оновлений масив A:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "A[" << i << "] = " << A[i] << endl;
+    }
+
+    delete[] A;
+    delete[] B;
+
+    return 0;
+}
+                                             Завдання 2
+#include <iostream>
+#include <limits>
+using namespace std;
+
+int main() {
+    int N;
+    cout << "Введіть розмір масиву N: ";
+    cin >> N;
+
+    double *arr = new double[N];
+    cout << "Введіть елементи масиву:\n";
+    for (int i = 0; i < N; i++) {
+        cout << "arr[" << i << "] = ";
+        cin >> arr[i];
+    }
+
+    double T1, T2;
+    cout << "Введіть значення T1: ";
+    cin >> T1;
+    cout << "Введіть значення T2: ";
+    cin >> T2;
+
+    int first_T2_index = -1;
+    // Знаходимо індекс першого елемента, рівного T2
+    for (int i = 0; i < N; i++) {
+        if (arr[i] == T2) {
+            first_T2_index = i;
+            break;
+        }
+    }
+
+    if (first_T2_index == -1) {
+        cout << "Елемент T2 не знайдено в масиві.\n";
+        delete[] arr;
+        return 0;
+    }
+
+    double min_value = numeric_limits<double>::max();
+    int min_index = -1;
+    // Шукаємо мінімальний елемент серед елементів > T1 праворуч від першого T2
+    for (int i = first_T2_index + 1; i < N; i++) {
+        if (arr[i] > T1 && arr[i] < min_value) {
+            min_value = arr[i];
+            min_index = i;
+        }
+    }
+
+    if (min_index == -1) {
+        cout << "Не знайдено елементів, більших за T1, праворуч від першого T2.\n";
+    } else {
+        cout << "Номер першого мінімального елемента (>T1 після першого T2): " << min_index << endl;
+    }
+
+    delete[] arr;
+    return 0;
+}
